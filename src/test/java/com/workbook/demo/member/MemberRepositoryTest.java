@@ -43,7 +43,7 @@ public class MemberRepositoryTest {
 
         //when
         Thread.sleep(1000);
-        savedMember.updateUserName("updatedUserName");
+        savedMember.setUserName("updatedUserName");
         memberRepository.save(savedMember);
         entityManager.flush(); // 영속성 컨텍스트를 db에 반영
 

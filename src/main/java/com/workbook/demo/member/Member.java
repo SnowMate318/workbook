@@ -1,9 +1,13 @@
 package com.workbook.demo.member;
 
+import com.workbook.demo.library.Library;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,10 +24,12 @@ public class Member {
     @Column(nullable = false, unique = true, length=254) //email 최대 길이
     private String email;
 
+    @Setter
     @Column(nullable = false, length=50)
     private String userName;
 
     @Lob
+    @Setter
     private String profile;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -31,6 +37,10 @@ public class Member {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+
+    @OneToMany
+    @JoinColumn(name="MEMBER_ID")
+    private List<Library> libraries = new ArrayList<>();
 
     public Member(){}
 
@@ -54,8 +64,8 @@ public class Member {
         this.updatedAt = new Date(); // Member 객체를 save할때 createdAt이 자동 설정
     }
 
-    public void updateUserName(String userName) {
-        this.userName = userName;
+    public void addLibrary(Library library) {
+        this.libraries.add(library);
     }
 
 
